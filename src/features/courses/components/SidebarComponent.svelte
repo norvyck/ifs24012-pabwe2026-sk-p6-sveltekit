@@ -74,15 +74,16 @@
   {/if}
 
   <aside
+    aria-label="Sidebar Navigasi"
     class="fixed top-16 bottom-0 left-0 z-30 w-64 bg-white border-r border-slate-200/80 p-4 transition-transform duration-200 ease-in-out md:translate-x-0 {isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}"
   >
     <div class="flex flex-col h-full justify-between">
       <div class="space-y-6">
         <div>
-          <p class="px-3 text-xs font-bold uppercase tracking-wider text-slate-400">
+          <p class="px-3 text-xs font-bold uppercase tracking-wider text-slate-600">
             Menu Utama
           </p>
-          <nav class="mt-3 space-y-1">
+          <nav aria-label="Navigasi Utama" class="mt-3 space-y-1">
             {#each navItems as item (item.to)}
               {@const active = isItemActive(item, page.url.pathname)}
               {@const Icon = item.icon}
@@ -97,7 +98,7 @@
                 <div class="flex items-center gap-3">
                   <Icon
                     size={20}
-                    class={active ? 'text-white' : 'text-slate-400 group-hover:text-slate-600'}
+                    class={active ? 'text-white' : 'text-slate-500 group-hover:text-slate-700'}
                   />
                   <span>{item.label}</span>
                 </div>
@@ -115,7 +116,7 @@
         <p class="text-xs font-semibold text-indigo-900">
           Praktikum 6 PABWE (SvelteKit)
         </p>
-        <p class="text-[11px] text-indigo-600/80 mt-0.5">
+        <p class="text-[11px] text-indigo-800 font-medium mt-0.5">
           Delcom Courses App
         </p>
       </div>

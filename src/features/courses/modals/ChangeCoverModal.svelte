@@ -43,7 +43,7 @@
         <label class="block rounded-xl border-2 border-dashed border-slate-300 p-8 text-center hover:border-indigo-400">
           <ImagePlus size={30} class="mx-auto text-indigo-500" />
           <span class="mt-2 block text-sm font-medium text-slate-700">{cover?.name || "Pilih gambar"}</span>
-          <input type="file" accept="image/*" class="sr-only" onchange={(event) => { cover = event.currentTarget.files?.[0] ?? null; }} />
+          <input type="file" accept="image/*" aria-label="Pilih gambar sampul" class="sr-only" onchange={(event) => { cover = event.currentTarget.files?.[0] ?? null; }} />
         </label>
         <footer class="flex justify-end gap-2">
           <button type="button" disabled={loading} onclick={() => onClose?.()} class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100">Batal</button>

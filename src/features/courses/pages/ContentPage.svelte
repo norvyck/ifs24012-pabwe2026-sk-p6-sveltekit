@@ -58,10 +58,15 @@
   }
 </script>
 
-<svelte:head><title>{content?.title || "Materi Kursus"} | Delcom Courses</title></svelte:head>
+<svelte:head>
+  <title>{content?.title || "Materi Kursus"} | Delcom Courses</title>
+  <meta name="description" content={`Pelajari materi ${content?.title || 'kursus'} di Delcom Courses.`} />
+</svelte:head>
 
 {#if loading}
-  <div class="rounded-2xl border border-slate-200 bg-white p-12 text-center text-slate-500">Memuat materi...</div>
+  <div class="rounded-2xl border border-slate-200 bg-white p-12 text-center">
+    <h1 class="text-xl font-bold text-slate-700">Memuat materi...</h1>
+  </div>
 {:else if !content || !course}
   <div class="rounded-2xl border border-slate-200 bg-white p-12 text-center">
     <h1 class="text-xl font-bold text-slate-900">Materi tidak ditemukan</h1>
@@ -70,7 +75,13 @@
 {:else}
   {@const videoId = getYouTubeId(content.youtube)}
   <article class="space-y-6">
-    <a href={`/courses/${course.id}`} class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-indigo-600"><ArrowLeft size={17} /> {course.title}</a>
+    <a
+      href={`/courses/${course.id}`}
+      aria-label={`Kembali ke kursus ${course.title || ''}`}
+      class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-indigo-600"
+    >
+      <ArrowLeft size={17} /> {course.title}
+    </a>
     <header>
       <p class="text-sm font-medium text-indigo-600">Materi Kursus</p>
       <h1 class="mt-1 text-3xl font-bold text-slate-900">{content.title}</h1>
@@ -90,7 +101,7 @@
       <div class="rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-900">Tautan video tidak dapat dikenali. <a class="font-semibold underline" href={content.youtube} target="_blank" rel="noreferrer">Buka video <ExternalLink size={14} class="inline" /></a></div>
     {/if}
     <div class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-5">
-      <div><h2 class="font-semibold text-slate-900">Status pembelajaran</h2><p class="mt-1 text-sm text-slate-500">{content.my_status_finished ? "Materi ini sudah selesai dipelajari." : "Tandai selesai setelah menonton materi."}</p></div>
+      <div><h2 class="font-semibold text-slate-900">Status pembelajaran</h2><p class="mt-1 text-sm text-slate-600">{content.my_status_finished ? "Materi ini sudah selesai dipelajari." : "Tandai selesai setelah menonton materi."}</p></div>
       {#if canLearn}
         <button type="button" onclick={() => setFinished(!content?.my_status_finished)} class="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold {content.my_status_finished ? 'bg-emerald-50 text-emerald-700' : 'bg-indigo-600 text-white hover:bg-indigo-700'}">
           {#if content.my_status_finished}<CheckCircle2 size={17} /> Tandai belum selesai{:else}<Circle size={17} /> Tandai selesai{/if}

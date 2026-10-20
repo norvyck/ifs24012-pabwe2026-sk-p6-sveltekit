@@ -66,7 +66,7 @@
     <div>
       <p class="text-sm font-semibold text-indigo-600">BELAJAR BERSAMA</p>
       <h1 class="mt-1 text-3xl font-bold tracking-tight text-slate-900">Semua Kursus</h1>
-      <p class="mt-2 text-slate-500">Jelajahi materi baru atau bagikan pengetahuanmu.</p>
+      <p class="mt-2 text-slate-600">Jelajahi materi baru atau bagikan pengetahuanmu.</p>
     </div>
     <div class="flex gap-2">
       {#if $usersStore.profile}
@@ -125,7 +125,7 @@
     <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
       {#each filteredCourses as course (course.id)}
         <article class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
-          <a href={`/courses/${course.id}`} class="block">
+          <a href={`/courses/${course.id}`} class="block" aria-label={`Buka kursus ${course.title}`}>
             {#if course.cover}
               <img src={course.cover} alt={`Sampul ${course.title}`} class="h-44 w-full object-cover" />
             {:else}
@@ -146,7 +146,7 @@
               {/if}
             </div>
             <p class="line-clamp-3 text-sm leading-6 text-slate-600">{course.description}</p>
-            <div class="flex items-center justify-between border-t border-slate-100 pt-3 text-xs text-slate-500">
+            <div class="flex items-center justify-between border-t border-slate-100 pt-3 text-xs text-slate-600">
               <span>{course.author?.name || "Pengajar Delcom"}</span>
               <span class="inline-flex items-center gap-1"><Users size={14} /> {course.students?.length ?? 0} peserta</span>
             </div>

@@ -86,10 +86,15 @@
   }
 </script>
 
-<svelte:head><title>{course?.title || "Detail Kursus"} | Delcom Courses</title></svelte:head>
+<svelte:head>
+  <title>{course?.title || "Detail Kursus"} | Delcom Courses</title>
+  <meta name="description" content={course?.description ? course.description.slice(0, 150) : "Detail kursus pembelajaran Delcom Courses"} />
+</svelte:head>
 
 {#if loading}
-  <div class="rounded-2xl border border-slate-200 bg-white p-12 text-center text-slate-500">Memuat kursus...</div>
+  <div class="rounded-2xl border border-slate-200 bg-white p-12 text-center">
+    <h1 class="text-xl font-bold text-slate-700">Memuat kursus...</h1>
+  </div>
 {:else if !course}
   <div class="rounded-2xl border border-slate-200 bg-white p-12 text-center">
     <h1 class="text-xl font-bold text-slate-900">Kursus tidak ditemukan</h1>
@@ -97,7 +102,7 @@
   </div>
 {:else}
   <div class="space-y-7">
-    <a href="/" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-indigo-600"><ArrowLeft size={17} /> Semua Kursus</a>
+    <a href="/" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-indigo-600"><ArrowLeft size={17} /> Semua Kursus</a>
     <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
       {#if course.cover}
         <img src={course.cover} alt={`Sampul ${course.title}`} class="h-56 w-full object-cover sm:h-72" />
@@ -119,10 +124,10 @@
             {/if}
           </div>
         </div>
-        <div class="flex flex-wrap gap-4 text-sm text-slate-500">
+        <div class="flex flex-wrap gap-4 text-sm text-slate-600">
           <span class="inline-flex items-center gap-1.5"><Users size={16} /> {course.students?.length ?? 0} peserta</span>
           <span class="inline-flex items-center gap-1.5"><PlayCircle size={16} /> {course.total_contents ?? course.contents?.length ?? 0} materi</span>
-          <span class="inline-flex items-center gap-1.5"><Star size={16} class="text-amber-400" /> {course.avg_ratings ?? "Belum ada rating"}</span>
+          <span class="inline-flex items-center gap-1.5"><Star size={16} class="text-amber-500" /> {course.avg_ratings ?? "Belum ada rating"}</span>
           {#if course.my_percentage_finished !== undefined}<span>{course.my_percentage_finished}% selesai</span>{/if}
         </div>
         <div class="border-t border-slate-100 pt-5">
@@ -134,7 +139,7 @@
 
     <section class="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8">
       <div class="flex flex-wrap items-center justify-between gap-3">
-        <div><h2 class="text-xl font-bold text-slate-900">Materi Kursus</h2><p class="mt-1 text-sm text-slate-500">Ikuti materi untuk menyelesaikan kursus.</p></div>
+        <div><h2 class="text-xl font-bold text-slate-900">Materi Kursus</h2><p class="mt-1 text-sm text-slate-600">Ikuti materi untuk menyelesaikan kursus.</p></div>
         {#if canManage}
           <button type="button" onclick={() => { editingContent = null; contentOpen = true; }} class="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"><Plus size={17} /> Tambah Materi</button>
         {/if}
@@ -146,7 +151,7 @@
               <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-sm font-bold text-indigo-700">{index + 1}</span>
               <a href={`/courses/${course.id}/contents/${content.id}`} class="flex min-w-0 flex-1 items-center justify-between gap-3">
                 <span class="truncate font-semibold text-slate-800 hover:text-indigo-600">{content.title}</span>
-                <span class="shrink-0 text-xs text-slate-500">{content.my_status_finished ? "Selesai" : "Belum dipelajari"}</span>
+                <span class="shrink-0 text-xs text-slate-600">{content.my_status_finished ? "Selesai" : "Belum dipelajari"}</span>
               </a>
               {#if canManage}
                 <button type="button" aria-label={`Ubah materi ${content.title}`} onclick={() => { editingContent = content; contentOpen = true; }} class="rounded-lg p-2 text-slate-400 hover:bg-indigo-50 hover:text-indigo-600"><Pencil size={16} /></button>
@@ -156,7 +161,7 @@
           {/each}
         </ol>
       {:else}
-        <p class="mt-6 rounded-xl bg-slate-50 p-6 text-center text-sm text-slate-500">Belum ada materi untuk kursus ini.</p>
+        <p class="mt-6 rounded-xl bg-slate-50 p-6 text-center text-sm text-slate-600">Belum ada materi untuk kursus ini.</p>
       {/if}
     </section>
 
