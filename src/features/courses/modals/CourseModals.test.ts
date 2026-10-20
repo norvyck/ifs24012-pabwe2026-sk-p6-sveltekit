@@ -268,8 +268,10 @@ describe("Course modals", () => {
   });
 
   it("closes a new content modal without optional callbacks", async () => {
-    render(ContentModal, { props: { show: true, courseId: 3 } });
+    const { container } = render(ContentModal, { props: { show: true, courseId: 3 } });
     await fireEvent.click(screen.getByRole("button", { name: "Tutup" }));
+    expect(container.querySelector("dialog")).not.toBeNull();
     await fireEvent.click(screen.getByRole("button", { name: "Batal" }));
+    expect(container.querySelector("dialog")).not.toBeNull();
   });
 });
