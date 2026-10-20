@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
-  import Viewer from "@toast-ui/editor/dist/toastui-editor-viewer";
   import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 
   export let content: string = "";
@@ -8,8 +7,9 @@
   let viewerContainer: HTMLElement;
   let viewerInstance: any;
 
-  onMount(() => {
+  onMount(async () => {
     try {
+      const { default: Viewer } = await import("@toast-ui/editor/dist/toastui-editor-viewer");
       viewerInstance = new Viewer({
         el: viewerContainer,
         initialValue: content || "",
