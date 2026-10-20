@@ -50,6 +50,10 @@ describe("ContentPage", () => {
     expect(screen.getByText("Materi ini sudah selesai dipelajari.")).toBeTruthy();
     expect(screen.getByRole("button", { name: "Tandai belum selesai" })).toBeTruthy();
     expect(refresh).toHaveBeenCalledWith(3);
+
+    await fireEvent.click(screen.getByRole("button", { name: "Tandai belum selesai" }));
+    await waitFor(() => expect(markFinished).toHaveBeenCalledWith(12, 0));
+    expect(screen.getByText("Tandai selesai setelah menonton materi.")).toBeTruthy();
   });
 
   it("renders an unrecognized video URL as an external link", async () => {
@@ -62,24 +66,48 @@ describe("ContentPage", () => {
     expect(screen.getByRole("link", { name: /Buka video/ }).getAttribute("href")).toBe("not a url");
   });
 
+  it("renders the title fallback and navigates back when content is missing", async () => {
+    vi.spyOn(coursesStore, "asyncSetContent").mockImplementation(async () => {
+      coursesStore.setContent(null);
+    });
+    const { mockGoto } = await import("../../../setupTests");
+    render(ContentPage);
+    await fireEvent.click(await screen.findByRole("button", { name: "Kembali ke kursus" }));
+    expect(mockGoto).toHaveBeenCalledWith("/");
+    expect(document.title).toContain("Materi Kursus");
+  });
+
   it("supports short links and video paths without a query parameter", async () => {
     vi.spyOn(coursesStore, "asyncSetContent").mockImplementation(async () => {
       coursesStore.setContent({ ...content, youtube: "https://youtu.be/short-id" });
     });
-    const { rerender } = render(ContentPage);
+    const { unmount } = render(ContentPage);
     expect((await screen.findByTitle("Dasar Svelte")).getAttribute("src")).toBe(
       "https://www.youtube-nocookie.com/embed/short-id"
     );
 
+    unmount();
+    const contentWithPath = {
+      ...content,
+      youtube: "https://youtube.com/embed/path-id",
+    };
+
     vi.spyOn(coursesStore, "asyncSetContent").mockImplementation(async () => {
-      coursesStore.setContent({ ...content, youtube: "https://youtube.com/embed/path-id" });
+      coursesStore.setContent(contentWithPath);
     });
     updateMockPage({ params: { contentId: "13" } });
-    await waitFor(() => {
-      expect(screen.getByTitle("Dasar Svelte").getAttribute("src")).toBe(
-        "https://www.youtube-nocookie.com/embed/path-id"
-      );
+    render(ContentPage);
+    expect((await screen.findByTitle("Dasar Svelte")).getAttribute("src")).toBe(
+      "https://www.youtube-nocookie.com/embed/path-id"
+    );
+  });
+
+  it("shows missing content when it has no course id and empty video IDs", async () => {
+    vi.spyOn(coursesStore, "asyncSetContent").mockImplementation(async () => {
+      coursesStore.setContent({ ...content, course_id: 0, youtube: "https://youtube.com/" });
     });
+    render(ContentPage);
+    expect(await screen.findByRole("heading", { name: "Materi tidak ditemukan" })).toBeTruthy();
   });
 
   it("keeps the current status when a status update fails or no content id is available", async () => {
@@ -88,6 +116,7 @@ describe("ContentPage", () => {
     vi.spyOn(coursesStore, "asyncSetIsContentStatusChange").mockImplementation(async () => {
       coursesStore.setIsContentStatusChanged(false);
     });
+
     await fireEvent.click(screen.getByRole("button", { name: "Tandai selesai" }));
     expect(screen.getByText("Tandai selesai setelah menonton materi.")).toBeTruthy();
     unmount();
@@ -95,6 +124,15 @@ describe("ContentPage", () => {
     updateMockPage({ params: {} });
     render(ContentPage);
     expect(screen.getByText("Memuat materi...")).toBeTruthy();
+  });
+
+  it("accepts a missing video ID from an otherwise valid YouTube URL", async () => {
+    vi.spyOn(coursesStore, "asyncSetContent").mockImplementation(async () => {
+      coursesStore.setContent({ ...content, youtube: "https://youtube.com/" });
+    });
+    render(ContentPage);
+
+    expect(await screen.findByText(/Tautan video tidak dapat dikenali/)).toBeTruthy();
   });
 
   it("shows the missing-content state when the related course cannot be loaded", async () => {
@@ -114,4 +152,18 @@ describe("ContentPage", () => {
     expect(await screen.findByRole("heading", { name: "Dasar Svelte" })).toBeTruthy();
     expect(screen.queryByRole("button", { name: "Tandai selesai" })).toBeNull();
   });
+
+  it("uses title fallbacks when content and course titles are empty", async () => {
+    vi.spyOn(coursesStore, "asyncSetContent").mockImplementation(async () => {
+      coursesStore.setContent({ ...content, title: "" });
+    });
+    vi.spyOn(coursesStore, "asyncSetCourse").mockImplementation(async () => {
+      coursesStore.setCourse({ ...course, title: "" });
+    });
+    render(ContentPage);
+
+    expect(await screen.findByText("Materi Kursus", { selector: "p" })).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Kembali ke kursus" })).toBeTruthy();
+  });
+
 });

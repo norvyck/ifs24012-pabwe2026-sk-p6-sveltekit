@@ -7,6 +7,35 @@ describe("courseApi", () => {
     vi.clearAllMocks();
   });
 
+  it("uses each endpoint's fallback error when the API omits a message", async () => {
+    const failedResponse = () => ({
+      json: async () => ({ status: "fail" }),
+    }) as Response;
+    const endpoints = [
+      [() => courseApi.postCourse("Judul", "Deskripsi"), "Gagal menambahkan kursus"],
+      [() => courseApi.postCourseCover(1, new File(["cover"], "cover.png")), "Gagal mengubah cover kursus"],
+      [() => courseApi.putCourse(1, "Judul", "Deskripsi"), "Gagal mengubah kursus"],
+      [() => courseApi.getCourses(), "Gagal mengambil data kursus"],
+      [() => courseApi.getCourseById(1), "Gagal mengambil detail kursus"],
+      [() => courseApi.deleteCourse(1), "Gagal menghapus kursus"],
+      [() => courseApi.deleteCourses(), "Gagal menghapus semua kursus"],
+      [() => courseApi.postStudent(1), "Gagal mendaftar sebagai peserta kursus"],
+      [() => courseApi.deleteStudent(1), "Gagal keluar dari peserta kursus"],
+      [() => courseApi.putStudentRating(1, 5, "Bagus"), "Gagal mengubah rating kursus"],
+      [() => courseApi.postContent(1, "Materi", "https://youtu.be/abc"), "Gagal menambahkan konten kursus"],
+      [() => courseApi.putContent(1, "Materi", "https://youtu.be/abc"), "Gagal mengubah konten kursus"],
+      [() => courseApi.getContentById(1), "Gagal mengambil detail konten kursus"],
+      [() => courseApi.deleteContent(1), "Gagal menghapus konten kursus"],
+      [() => courseApi.postContentStatus(1, 1), "Gagal mengubah status pembelajaran konten"],
+    ] as const;
+
+    for (const [request, message] of endpoints) {
+      vi.spyOn(apiHelper, "fetchData").mockResolvedValue(failedResponse());
+      await expect(request()).rejects.toThrow(message);
+      vi.restoreAllMocks();
+    }
+  });
+
   describe("postCourse", () => {
     it("should post course successfully", async () => {
       const mockResponse = {

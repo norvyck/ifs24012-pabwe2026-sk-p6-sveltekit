@@ -3,6 +3,8 @@ import CourseLayout from "./CourseLayout.svelte";
 import { renderWithProviders } from "../../../test-utils";
 import apiHelper from "../../../helpers/apiHelper";
 import { mockGoto } from "../../../setupTests";
+import { fireEvent, waitFor } from "@testing-library/svelte";
+import userApi from "../../users/api/userApi";
 
 describe("CourseLayout", () => {
   beforeEach(() => {
@@ -91,6 +93,30 @@ describe("CourseLayout", () => {
     await wrapper.find('[data-testid="dropdown-logout-button"]').trigger("click");
 
     expect(logoutSpy).toHaveBeenCalled();
+  });
+
+  it("keeps a loaded profile and opens/closes the mobile sidebar", async () => {
+    vi.spyOn(apiHelper, "getAccessToken").mockReturnValue("valid-token");
+    vi.spyOn(userApi, "getProfile").mockResolvedValue({
+      id: 1,
+      name: "User Tes",
+      email: "tes@delcom.org",
+    });
+    const { container } = renderWithProviders(CourseLayout, {
+      preloadedState: { profile: null },
+    });
+    const putTokenSpy = vi.spyOn(apiHelper, "putAccessToken").mockImplementation(() => {});
+
+    await waitFor(() => expect(container.textContent).toContain("User Tes"));
+    expect(putTokenSpy).not.toHaveBeenCalled();
+    await fireEvent.click(container.querySelector('[data-testid="toggle-sidebar-btn"]')!);
+    await waitFor(() =>
+      expect(container.querySelector('[data-testid="sidebar-backdrop"]')).toBeTruthy()
+    );
+    await fireEvent.click(container.querySelector('[data-testid="sidebar-backdrop"]')!);
+    await waitFor(() =>
+      expect(container.querySelector('[data-testid="sidebar-backdrop"]')).toBeNull()
+    );
   });
 
 });

@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-10-20T20:30:00+07:00",
+  "generatedOnPlatform": "win32",
+  "projectType": "webapp",
+  "setup": [
+    {
+      "command": "bun",
+      "args": ["install", "--frozen-lockfile"],
+      "timeoutSeconds": 600
+    }
+  ],
+  "assertions": [
+    {
+      "name": "svelte-type-check",
+      "kind": "process",
+      "command": "bun",
+      "args": ["run", "check"],
+      "verificationMethod": "exit-code",
+      "expected": "0",
+      "timeoutSeconds": 180
+    },
+    {
+      "name": "tests-pass",
+      "kind": "process",
+      "command": "bun",
+      "args": ["run", "test"],
+      "verificationMethod": "test-results",
+      "expected": "0",
+      "timeoutSeconds": 300
+    },
+    {
+      "name": "coverage-thresholds-100",
+      "kind": "process",
+      "command": "bun",
+      "args": ["run", "test:coverage"],
+      "verificationMethod": "exit-code",
+      "expected": "0",
+      "timeoutSeconds": 300
+    },
+    {
+      "name": "production-build",
+      "kind": "process",
+      "command": "bun",
+      "args": ["run", "build"],
+      "verificationMethod": "exit-code",
+      "expected": "0",
+      "timeoutSeconds": 300
+    },
+    {
+      "name": "login-page-http-200",
+      "kind": "http-probe",
+      "startCommand": "bun",
+      "startArgs": ["run", "dev", "--host", "127.0.0.1"],
+      "url": "http://127.0.0.1:3005/auth/login",
+      "verificationMethod": "http-status",
+      "expected": "200",
+      "timeoutSeconds": 120
+    }
+  ]
+}

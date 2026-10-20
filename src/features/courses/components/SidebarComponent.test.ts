@@ -57,23 +57,26 @@ describe("SidebarComponent", () => {
     expect(backdrop.exists()).toBe(true);
 
     if (backdrop.element) {
+      backdrop.element.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+      await new Promise((r) => setTimeout(r, 0));
+      expect(closeSpy).toHaveBeenCalledTimes(1);
       backdrop.element.click();
       await new Promise((r) => setTimeout(r, 0));
     }
-    expect(closeSpy).toHaveBeenCalled();
+    expect(closeSpy).toHaveBeenCalledTimes(2);
 
     // Keydown other key
     if (backdrop.element) {
-      backdrop.element.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
+      backdrop.element.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
       await new Promise((r) => setTimeout(r, 0));
     }
 
-    // Keydown Escape
+    // Keydown Escape after a non-Escape key.
     if (backdrop.element) {
       backdrop.element.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
       await new Promise((r) => setTimeout(r, 0));
     }
-    expect(closeSpy).toHaveBeenCalledTimes(2);
+    expect(closeSpy).toHaveBeenCalledTimes(3);
   });
 
   it("should handle navigation when onCloseMobile is not provided", async () => {

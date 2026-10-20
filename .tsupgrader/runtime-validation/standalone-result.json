@@ -1,0 +1,160 @@
+{
+  "planHash": "4f94df4c3132d952dc6d6565ee29f09c21ad48f7b8b10f3a0dedfe5804aada7d",
+  "phase": "standalone",
+  "recordedAtUtc": "2026-10-20T14:18:31.7739969Z",
+  "retryCount": 0,
+  "resetBaseline": false,
+  "complete": true,
+  "result": {
+    "setupSucceeded": true,
+    "setupDurationMs": 769,
+    "setupFailureOutput": null,
+    "assertions": [
+      {
+        "name": "svelte-type-check",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "$ svelte-kit sync \u0026\u0026 svelte-check --tsconfig ./tsconfig.json\r\nLoading svelte-check in workspace: d:\\College\\Academic\\SEMESTER 5\\PABWE\\Praktikum\\P6\\ifs24012-pabwe2026-sk-p6-sveltekit\r\nGetting Svelte diagnostics...\r\n\r\n\u001B[32msvelte-check found 0 errors and 0 warnings\r\n\u001B[39m\r\n",
+        "durationMs": 9698
+      },
+      {
+        "name": "tests-pass",
+        "kind": "process",
+        "verificationMethod": "test-results",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "$ vitest run\r\n\r\n RUN  v5.0.5 D:/College/Academic/SEMESTER 5/PABWE/Praktikum/P6/ifs24012-pabwe2026-sk-p6-sveltekit\r\n\r\n\r\n Test Files  25 passed (25)\r\n      Tests  247 passed (247)\r\n   Start at  21:14:26\r\n   Duration  84.24s (import 52%, transform 25%, environment 15%, setup 7%, tests 2%)\r\n\r\n",
+        "durationMs": 87679,
+        "testResults": {
+          "testFramework": "vitest",
+          "runnerDetectedFrom": "package_json",
+          "testsTotal": 247,
+          "testsPassed": 247,
+          "testsFailed": 0,
+          "testsSkipped": 0,
+          "parseFailed": false
+        }
+      },
+      {
+        "name": "coverage-thresholds-100",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "$ vitest run --coverage\r\n\r\n RUN  v5.0.5 D:/College/Academic/SEMESTER 5/PABWE/Praktikum/P6/ifs24012-pabwe2026-sk-p6-sveltekit\r\n      Coverage enabled with v8\r\n\r\n\r\n Test Files  25 passed (25)\r\n      Tests  247 passed (247)\r\n   Start at  21:15:55\r\n   Duration  90.11s (import 49%, transform 25%, environment 16%, setup 7%, tests 2%, worker 1%)\r\n\r\n\u001B[34m % \u001B[39m\u001B[2mCoverage report from \u001B[22m\u001B[33mv8\u001B[39m\r\nNo files with missing coverage.\r\n39 files fully covered.\r\n\r\n=============================== Coverage summary ===============================\r\nStatements   : 100% ( 1889/1889 )\r\nBranches     : 100% ( 579/579 )\r\nFunctions    : 100% ( 494/494 )\r\nLines        : 100% ( 1299/1299 )\r\n================================================================================\r\n",
+        "durationMs": 94470
+      },
+      {
+        "name": "production-build",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "$ bun --bun vite build\r\n\u001B[36mvite v8.3.4 \u001B[32mbuilding ssr environment for production...\u001B[36m\u001B[39m\r\ntransforming...\r\n\u2713 3803 modules transformed.\r\nrendering chunks...\r\ncomputing gzip size...\r\n.svelte-kit/output/server/.vite/manifest.json                                                      8.71 kB \u2502 gzip:   1.06 kB\r\n.svelte-kit/output/server/_app/immutable/assets/_page.DbQvFYdk.css                                12.18 kB \u2502 gzip:   3.79 kB\r\n.svelte-kit/output/server/_app/immutable/assets/_layout.DbykgJDC.css                              41.99 kB \u2502 gzip:   7.55 kB\r\n.svelte-kit/output/server/_app/immutable/assets/MarkdownEditor._ctT4pqk.css                      167.45 kB \u2502 gzip: 107.31 kB\r\n.svelte-kit/output/server/entries/pages/_layout.ts.js                                              0.11 kB \u2502 gzip:   0.11 kB \u2502 map:   0.17 kB\r\n.svelte-kit/output/server/env.js                                                                   0.31 kB \u2502 gzip:   0.19 kB \u2502 map:   0.57 kB\r\n.svelte-kit/output/server/chunks/index-server.js                                                   0.52 kB \u2502 gzip:   0.30 kB \u2502 map:   1.67 kB\r\n.svelte-kit/output/server/chunks/navigation.js                                                     0.60 kB \u2502 gzip:   0.30 kB \u2502 map:   1.19 kB\r\n.svelte-kit/output/server/chunks/state.js                                                          0.76 kB \u2502 gzip:   0.31 kB \u2502 map:   2.22 kB\r\n.svelte-kit/output/server/entries/pages/courses/_courseId_/contents/_contentId_/_page.svelte.js    1.57 kB \u2502 gzip:   0.69 kB \u2502 map:   6.39 kB\r\n.svelte-kit/output/server/index.js                                                                 2.26 kB \u2502 gzip:   0.90 kB \u2502 map:   3.32 kB\r\n.svelte-kit/output/server/entries/pages/auth/_layout.svelte.js                                     3.07 kB \u2502 gzip:   1.18 kB \u2502 map:   3.60 kB\r\n.svelte-kit/output/server/chunks/authStore.js                                                      3.58 kB \u2502 gzip:   1.08 kB \u2502 map:   7.26 kB\r\n.svelte-kit/output/server/chunks/toolsHelper.js                                                    4.16 kB \u2502 gzip:   1.62 kB \u2502 map:  11.79 kB\r\n.svelte-kit/output/server/chunks/x.js                                                              4.87 kB \u2502 gzip:   2.43 kB \u2502 map:   4.85 kB\r\n.svelte-kit/output/server/chunks/loader-circle.js                                                  4.93 kB \u2502 gzip:   2.45 kB \u2502 map:   4.84 kB\r\n.svelte-kit/output/server/chunks/search.js                                                         4.96 kB \u2502 gzip:   2.48 kB \u2502 map:   4.95 kB\r\n.svelte-kit/output/server/chunks/user.js                                                           5.01 kB \u2502 gzip:   2.52 kB \u2502 map:   5.00 kB\r\n.svelte-kit/output/server/chunks/lock.js                                                           5.05 kB \u2502 gzip:   2.54 kB \u2502 map:   5.07 kB\r\n.svelte-kit/output/server/chunks/mail.js                                                           5.06 kB \u2502 gzip:   2.55 kB \u2502 map:   5.07 kB\r\n.svelte-kit/output/server/chunks/users.js                                                          5.25 kB \u2502 gzip:   2.60 kB \u2502 map:   5.30 kB\r\n.svelte-kit/output/server/chunks/graduation-cap.js                                                 5.34 kB \u2502 gzip:   2.68 kB \u2502 map:   5.33 kB\r\n.svelte-kit/output/server/chunks/usersStore.js                                                     6.14 kB \u2502 gzip:   1.35 kB \u2502 map:  12.14 kB\r\n.svelte-kit/output/server/chunks/MarkdownEditor.js                                                 6.24 kB \u2502 gzip:   2.96 kB \u2502 map:   8.83 kB\r\n.svelte-kit/output/server/entries/pages/auth/login/_page.svelte.js                                 8.65 kB \u2502 gzip:   3.61 kB \u2502 map:   9.77 kB\r\n.svelte-kit/output/server/entries/pages/auth/register/_page.svelte.js                              9.97 kB \u2502 gzip:   3.74 kB \u2502 map:  11.45 kB\r\n.svelte-kit/output/server/entries/pages/users/_page.svelte.js                                     10.21 kB \u2502 gzip:   4.28 kB \u2502 map:  11.81 kB\r\n.svelte-kit/output/server/chunks/Icon.js                                                          13.03 kB \u2502 gzi\n\u2026[truncated]",
+        "durationMs": 19933
+      },
+      {
+        "name": "login-page-http-200",
+        "kind": "http-probe",
+        "verificationMethod": "http-status",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": null,
+        "outputSample": "HTTP 200\n\u003C!doctype html\u003E\n\u003Chtml lang=\u0022id\u0022\u003E\n  \u003Chead\u003E\n    \u003Cmeta charset=\u0022utf-8\u0022 /\u003E\n    \u003Clink rel=\u0022icon\u0022 type=\u0022image/svg\u002Bxml\u0022 href=\u0022/logo.svg\u0022 /\u003E\n    \u003Cmeta name=\u0022viewport\u0022 content=\u0022width=device-width, initial-scale=1\u0022 /\u003E\n    \u003Ctitle\u003EDelcom Courses\u003C/title\u003E\n    \u003Cmeta name=\u0022description\u0022 content=\u0022Aplikasi kursus pembelajaran daring Delcom Courses berbasis SvelteKit.\u0022 /\u003E\n    \u003C!-- Google Fonts: Plus Jakarta Sans --\u003E\n    \u003Clink rel=\u0022preconnect\u0022 href=\u0022https://fonts.googleapis.com\u0022 /\u003E\n    \u003Clink rel=\u0022preconnect\u0022 href=\u0022https://fonts.gstatic.com\u0022 crossorigin /\u003E\n    \u003Clink\n      href=\u0022https://fonts.googleapis.com/css2?family=Plus\u002BJakarta\u002BSans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600\u0026display=swap\u0022\n      rel=\u0022stylesheet\u0022\n    /\u003E\n    \n\t\t\u003Cstyle data-sveltekit\u003E/*! tailwindcss v4.3.3 | MIT License | https://tailwindcss.com */\n@layer properties;\n@layer theme, base, components, utilities;\n@layer theme {\n  :root, :host {\n    --font-sans: -apple-system, BlinkMacSystemFont, \u0022Segoe UI\u0022, Roboto, \u0022Helvetica Neue\u0022,\n      \u0022Noto Sans\u0022, Arial, sans-serif, \u0022Apple Color Emoji\u0022, \u0022Segoe UI Emoji\u0022,\n      \u0022Segoe UI Symbol\u0022, \u0022Noto Color Emoji\u0022;\n    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \u0022Liberation Mono\u0022,\n      \u0022Courier New\u0022, monospace;\n    --color-red-50: oklch(97.1% 0.013 17.38);\n    --color-red-200: oklch(88.5% 0.062 18.334);\n    --color-red-500: oklch(63.7% 0.237 25.331);\n    --color-red-600: oklch(57.7% 0.245 27.325);\n    --color-amber-50: oklch(98.7% 0.022 95.277);\n    --color-amber-200: oklch(92.4% 0.12 95.746);\n    --color-amber-500: oklch(76.9% 0.188 70.08);\n    --color-amber-600: oklch(66.6% 0.179 58.318);\n    --color-amber-900: oklch(41.4% 0.112 45.904);\n    --color-emerald-50: oklch(97.9% 0.021 166.113);\n    --color-emerald-700: oklch(50.8% 0.118 165.612);\n    --color-cyan-500: oklch(71.5% 0.143 215.221);\n    --color-indigo-50: oklch(96.2% 0.018 272.314);\n    --color-indigo-100: oklch(93% 0.034 272.788);\n    --color-indigo-200: oklch(87% 0.065 274.039);\n    --color-indigo-300: oklch(78.5% 0.115 274.713);\n    --color-indigo-400: oklch(67.3% 0.182 276.935);\n    --color-indigo-500: oklch(58.5% 0.233 277.117);\n    --color-indigo-600: oklch(51.1% 0.262 276.966);\n    --color-indigo-700: oklch(45.7% 0.24 277.023);\n    --color-indigo-800: oklch(39.8% 0.195 277.366);\n    --color-indigo-900: oklch(35.9% 0.144 278.697);\n    --color-indigo-950: oklch(25.7% 0.09 281.288);\n    --color-violet-100: oklch(94.3% 0.029 294.588);\n    --color-purple-50: oklch(97.7% 0.014 308.299);\n    --color-purple-600: oklch(55.8% 0.288 302.321);\n    --color-slate-50: oklch(98.4% 0.003 247.858);\n    --color-slate-100: oklch(96.8% 0.007 247.896);\n    --color-slate-200: oklch(92.9% 0.013 255.508);\n    --color-slate-300: oklch(86.9% 0.022 252.894);\n    --color-slate-400: oklch(70.4% 0.04 256.788);\n    --color-slate-500: oklch(55.4% 0.046 257.417);\n    --color-slate-600: oklch(44.6% 0.043 257.281);\n    --color-slate-700: oklch(37.2% 0.044 257.287);\n    --color-slate-800: oklch(27.9% 0.041 260.031);\n    --color-slate-900: oklch(20.8% 0.042 265.755);\n    --color-slate-950: oklch(12.9% 0.042 264.695);\n    --color-black: #000;\n    --color-white: #fff;\n    --spacing: 0.25rem;\n    --container-md: 28rem;\n    --container-lg: 32rem;\n    --container-3xl: 48rem;\n    --container-4xl: 56rem;\n    --container-7xl: 80rem;\n    --text-xs: 0.75rem;\n    --text-xs--line-height: calc(1 / 0.75);\n    --text-sm: 0.875rem;\n    --text-sm--line-height: calc(1.25 / 0.875);\n    --text-base: 1rem;\n    --text-base--line-height: calc(1.5 / 1);\n    --text-lg: 1.125rem;\n    --text-lg--line-height: calc(1.75 / 1.125);\n    --text-xl: 1.25rem;\n    --text-xl--line-height: calc(1.75 / 1.25);\n    --text-2xl: 1.5rem;\n    --text-2xl--line-height: calc(2 / 1.5);\n    --text-3xl: 1.875rem;\n    --text-3xl--line-height: calc(2.25 / 1.875);\n    --text-4xl: 2.25rem;\n    --text-4xl--line-height: calc(2.5 / 2.25);\n    --font-weight-medium: 500;\n    --font-weight-semibold: 600;\n    --font-weight-bold: 700;\n    --font-weight-extrabold: 800;\n    --font-weight-black: 900;\n    --tracking-tight: -0.025em;\n\u2026[truncated]",
+        "durationMs": 45792
+      }
+    ],
+    "executions": [
+      {
+        "source": "setup[0]",
+        "resolvedExecutable": "C:\\Users\\HP\\.bun\\bin\\bun.EXE",
+        "args": [
+          "install",
+          "--frozen-lockfile"
+        ],
+        "cwd": "D:\\College\\Academic\\SEMESTER 5\\PABWE\\Praktikum\\P6\\ifs24012-pabwe2026-sk-p6-sveltekit",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "svelte-type-check",
+        "resolvedExecutable": "C:\\Users\\HP\\.bun\\bin\\bun.EXE",
+        "args": [
+          "run",
+          "check"
+        ],
+        "cwd": "D:\\College\\Academic\\SEMESTER 5\\PABWE\\Praktikum\\P6\\ifs24012-pabwe2026-sk-p6-sveltekit",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "tests-pass",
+        "resolvedExecutable": "C:\\Users\\HP\\.bun\\bin\\bun.EXE",
+        "args": [
+          "run",
+          "test"
+        ],
+        "cwd": "D:\\College\\Academic\\SEMESTER 5\\PABWE\\Praktikum\\P6\\ifs24012-pabwe2026-sk-p6-sveltekit",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "coverage-thresholds-100",
+        "resolvedExecutable": "C:\\Users\\HP\\.bun\\bin\\bun.EXE",
+        "args": [
+          "run",
+          "test:coverage"
+        ],
+        "cwd": "D:\\College\\Academic\\SEMESTER 5\\PABWE\\Praktikum\\P6\\ifs24012-pabwe2026-sk-p6-sveltekit",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "production-build",
+        "resolvedExecutable": "C:\\Users\\HP\\.bun\\bin\\bun.EXE",
+        "args": [
+          "run",
+          "build"
+        ],
+        "cwd": "D:\\College\\Academic\\SEMESTER 5\\PABWE\\Praktikum\\P6\\ifs24012-pabwe2026-sk-p6-sveltekit",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "login-page-http-200",
+        "resolvedExecutable": "C:\\Users\\HP\\.bun\\bin\\bun.EXE",
+        "args": [
+          "run",
+          "dev",
+          "--host",
+          "127.0.0.1"
+        ],
+        "cwd": "D:\\College\\Academic\\SEMESTER 5\\PABWE\\Praktikum\\P6\\ifs24012-pabwe2026-sk-p6-sveltekit",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      }
+    ]
+  }
+}

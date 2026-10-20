@@ -116,6 +116,24 @@ describe("HomePage", () => {
     expect(deleteAll).not.toHaveBeenCalled();
   });
 
+  it("keeps courses visible when a confirmed deletion fails", async () => {
+    vi.spyOn(coursesStore, "asyncSetIsCourseDelete").mockImplementation(async () => {
+      coursesStore.setIsCourseDeleted(false);
+    });
+    vi.spyOn(coursesStore, "asyncSetIsCourseDeleteAll").mockImplementation(async () => {
+      coursesStore.setIsCourseDeletedAll(false);
+    });
+    vi.mocked(showConfirmDialog).mockResolvedValue({ isConfirmed: true } as never);
+    const reload = vi.spyOn(coursesStore, "asyncSetCourses");
+    render(HomePage);
+    await screen.findByText("Svelte Dasar");
+
+    await fireEvent.click(screen.getByRole("button", { name: "Hapus kursus Svelte Dasar" }));
+    await fireEvent.click(screen.getByRole("button", { name: "Hapus Kursus Saya" }));
+    expect(screen.getByText("Svelte Dasar")).toBeTruthy();
+    expect(reload).toHaveBeenCalledTimes(1);
+  });
+
   it("hides management actions when there is no profile", async () => {
     usersStore.setProfile(null);
     render(HomePage);
@@ -123,5 +141,24 @@ describe("HomePage", () => {
     await screen.findByText("Svelte Dasar");
     expect(screen.queryByRole("button", { name: /Buat Kursus/ })).toBeNull();
     expect(screen.queryByRole("button", { name: "Hapus kursus Svelte Dasar" })).toBeNull();
+  });
+
+  it("uses author and participant fallbacks when course details are absent", async () => {
+    vi.spyOn(coursesStore, "asyncSetCourses").mockImplementation(async () => {
+      coursesStore.setCourses([
+        {
+          id: 3,
+          user_id: 9,
+          title: "Kursus Ringkas",
+          description: "Deskripsi",
+        },
+      ]);
+    });
+    setupMockStores({ profile: null });
+    render(HomePage);
+
+    expect(await screen.findByText("Kursus Ringkas")).toBeTruthy();
+    expect(screen.getByText("Pengajar Delcom")).toBeTruthy();
+    expect(screen.getByText("0 peserta")).toBeTruthy();
   });
 });

@@ -181,6 +181,20 @@ describe("userApi", () => {
       expect(msg).toBe("Berhasil mengubah foto profil");
     });
 
+    it("uses a fallback filename when the uploaded photo has no name", async () => {
+      vi.spyOn(apiHelper, "fetchData").mockResolvedValue({
+        json: async () => ({
+          status: "success",
+          message: "Berhasil mengubah foto profil",
+        }),
+      } as any);
+
+      const file = new File(["dummy"], "");
+      await userApi.postProfilePhoto(file);
+      const [, options] = vi.mocked(apiHelper.fetchData).mock.calls[0];
+      expect(((options?.body as FormData).get("photo") as File).name).toBe("profile.png");
+    });
+
     it("should handle photo file without name properly", async () => {
       vi.spyOn(apiHelper, "fetchData").mockResolvedValue({
         json: async () => ({
